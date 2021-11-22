@@ -8,7 +8,7 @@ read -p "Masukan app name: " app_name
 read -p "Masukan git url: " git_url
 ### Creating folders
 WWW_FOLD=/var/www/${app_name}
-CONF_FOLD=/usr/local/lsws/conf/vhost/${app_name}
+CONF_FOLD=/usr/local/lsws/conf/vhosts/${app_name}
 DEFAULT_CONF_FOLD=ols_default
 
 if [[ -d "$WWW_FOLD" ]]; then
