@@ -1,9 +1,7 @@
-adminemails support@kangketik.web.id
+adminemails support@fathtech.co.id
 docroot $VH_ROOT/html/
 enablegzip 1
 enablebr 1
-vhdomain *
-vhaliases *
 
 index  {
     indexfiles index.php, index.html
@@ -11,9 +9,9 @@ index  {
 }
 
 rewrite  {
-    enable 1
-    autoloadhtaccess 1
-    rules <<<MY_END
+  enable                  1
+  autoLoadHtaccess        1
+  rules                   <<<END_rules
 #redirect http to https
 
 RewriteEngine On
@@ -22,7 +20,9 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L,QSA]
-    MY_END
+  END_rules
+
+
 }
 
 vhssl  {
@@ -78,7 +78,7 @@ addetag 0
 }
 
 scripthandler  {
-    add lsapi:lsphp74 php
+    add lsapi:lsphp73 php
 }
 
 accesslog $VH_ROOT/logs/access_log {
@@ -106,19 +106,4 @@ errorlog $VH_ROOT/logs/error_log {
     loglevel ERROR
     rollingsize 10M
     useserver 1
-}
-
-extprocessor lsphp74 {
-    respbuffer 0
-    retrytimeout 7200
-    persistconn 1
-    pckeepalivetimeout 30
-    autostart 2
-    path $SERVER_ROOT/lsphp74/bin/lsphp
-    backlog 100
-    instances 1
-    type lsapi
-    address uds://tmp/lshttpd/lsphp74.sock
-    maxconns 300
-    inittimeout 60
 }

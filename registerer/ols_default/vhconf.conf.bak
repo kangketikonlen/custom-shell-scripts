@@ -1,7 +1,5 @@
 docRoot                   $VH_ROOT/html/
-vhDomain                  *
-vhAliases                 *
-adminEmails               support@kangketik.web.id
+adminEmails               support@fathtech.co.id
 enableGzip                1
 enableBr                  1
 
@@ -23,7 +21,7 @@ index  {
 }
 
 scripthandler  {
-  add                     lsapi:lsphp74 php
+  add                     lsapi:lsphp73 php
 }
 
 accessControl  {
@@ -43,18 +41,6 @@ extprocessor lsphp73 {
   path                    $SERVER_ROOT/lsphp73/bin/lsphp
   backlog                 100
   instances               1
-}
-
-extprocessor lsphp74 {
-  type                    lsapi
-  address                 uds://tmp/lshttpd/lsphp74.sock
-  maxConns                300
-  initTimeout             60
-  retryTimeout            7200
-  persistConn             1
-  pcKeepAliveTimeout      30
-  respBuffer              0
-  autoStart               2
 }
 
 rewrite  {
