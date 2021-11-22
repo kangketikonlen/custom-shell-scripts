@@ -10,6 +10,7 @@ read -p "Masukan git url: " git_url
 ### Creating folders
 WWW_FOLD=/var/www/${app_name}
 CONF_FOLD=/usr/local/lsws/conf/vhost/${app_name}
+DEFAULT_CONF_FOLD=ols_default
 
 if [[ -f "$WWW_FOLD" ]]; then
     rm -rf "$WWW_FOLD"
@@ -27,6 +28,6 @@ else
     git clone ${git_url} ${WWW_FOLD}/repo/
 fi
 
-sudo cp -r ols_default ${CONF_FOLD}
+sudo cp -r DEFAULT_CONF_FOLD ${CONF_FOLD}
 sudo chown -R lsadm:nogroup ${CONF_FOLD}
 "\e[32m✅ DONE Edit manualy from your ip_address:7080\e[0m"

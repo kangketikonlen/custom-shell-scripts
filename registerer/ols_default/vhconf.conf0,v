@@ -1,0 +1,315 @@
+head	1.12;
+access;
+symbols;
+locks
+	root:1.12; strict;
+comment	@# @;
+
+
+1.12
+date	2021.11.13.13.40.46;	author root;	state Exp;
+branches;
+next	1.11;
+
+1.11
+date	2021.11.13.13.32.44;	author root;	state Exp;
+branches;
+next	1.10;
+
+1.10
+date	2021.10.25.10.26.55;	author root;	state Exp;
+branches;
+next	1.9;
+
+1.9
+date	2021.09.30.09.58.49;	author root;	state Exp;
+branches;
+next	1.8;
+
+1.8
+date	2021.09.27.09.04.56;	author root;	state Exp;
+branches;
+next	1.7;
+
+1.7
+date	2021.09.27.03.36.54;	author root;	state Exp;
+branches;
+next	1.6;
+
+1.6
+date	2021.09.27.03.32.00;	author root;	state Exp;
+branches;
+next	1.5;
+
+1.5
+date	2021.08.23.09.44.02;	author root;	state Exp;
+branches;
+next	1.4;
+
+1.4
+date	2021.04.28.13.57.53;	author root;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	2021.04.28.13.55.49;	author root;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	2021.04.25.17.56.01;	author root;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2021.04.20.04.05.06;	author root;	state Exp;
+branches;
+next	;
+
+
+desc
+@/usr/local/lsws/conf/vhosts/wit/vhconf.conf0
+@
+
+
+1.12
+log
+@Update
+@
+text
+@docRoot                   $VH_ROOT/html/
+vhDomain                  *
+vhAliases                 *
+adminEmails               support@@kangketik.web.id
+enableGzip                1
+enableBr                  1
+
+errorlog $VH_ROOT/logs/error_log {
+  useServer               1
+  logLevel                ERROR
+  rollingSize             10M
+  keepDays                3
+}
+
+accesslog $VH_ROOT/logs/access_log {
+  useServer               0
+  rollingSize             10M
+}
+
+index  {
+  useServer               1
+  indexFiles              index.php, index.html
+}
+
+scripthandler  {
+  add                     lsapi:lsphp74 php
+}
+
+accessControl  {
+  allow                   *
+}
+
+extprocessor lsphp73 {
+  type                    lsapi
+  address                 uds://tmp/lshttpd/lsphp73.sock
+  maxConns                300
+  env                     PHP_LSAPI_CHILDREN=300
+  initTimeout             60
+  retryTimeout            0
+  persistConn             1
+  respBuffer              0
+  autoStart               2
+  path                    $SERVER_ROOT/lsphp73/bin/lsphp
+  backlog                 100
+  instances               1
+}
+
+extprocessor lsphp74 {
+  type                    lsapi
+  address                 uds://tmp/lshttpd/lsphp74.sock
+  maxConns                300
+  initTimeout             60
+  retryTimeout            7200
+  persistConn             1
+  pcKeepAliveTimeout      30
+  respBuffer              0
+  autoStart               2
+  path                    $SERVER_ROOT/lsphp74/bin/lsphp
+  backlog                 100
+  instances               1
+}
+
+rewrite  {
+  enable                  1
+  autoLoadHtaccess        1
+  rules                   <<<END_rules
+#redirect http to https
+
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+  END_rules
+
+
+}
+
+vhssl  {
+  keyFile                 /etc/letsencrypt/live/akademik.mtsattaqwa3.sch.id/privkey.pem
+  certFile                /etc/letsencrypt/live/akademik.mtsattaqwa3.sch.id/fullchain.pem
+  certChain               1
+}
+
+module cache {
+enableCache                      0
+enablePrivateCache               0
+checkPublicCache                 1
+checkPrivateCache                1
+qsCache                          1
+reqCookieCache                   1
+ignoreReqCacheCtrl               1
+ignoreRespCacheCtrl              0
+respCookieCache                  1
+expireInSeconds                  3600
+privateExpireInSeconds           3600
+maxStaleAge                      200
+maxCacheObjSize                  10000000
+storagepath                      cachedata
+noCacheDomain
+noCacheUrl
+no-vary                          0
+addEtag                          0
+  ls_enabled              1
+}
+
+@
+
+
+1.11
+log
+@Update
+@
+text
+@d26 1
+a26 1
+  add                     lsapi:lsphp73 php
+d58 3
+@
+
+
+1.10
+log
+@Update
+@
+text
+@d48 12
+d73 1
+@
+
+
+1.9
+log
+@Update
+@
+text
+@d52 2
+d55 2
+a60 1
+
+@
+
+
+1.8
+log
+@Update
+@
+text
+@d2 2
+a3 2
+vhDomain                  akademik.mtsattaqwa3.sch.id
+vhAliases                 akademik.mtsattaqwa3.sch.id
+@
+
+
+1.7
+log
+@Update
+@
+text
+@d1 3
+a3 1
+docRoot                   $VH_ROOT/devs/
+d57 1
+@
+
+
+1.6
+log
+@Update
+@
+text
+@a50 2
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+a54 1
+
+@
+
+
+1.5
+log
+@Update
+@
+text
+@d1 1
+a1 3
+docRoot                   $VH_ROOT/html/
+vhDomain                  akademik.mtsattaqwa3.sch.id
+vhAliases                 akademik.mtsattaqwa3.sch.id
+@
+
+
+1.4
+log
+@Update
+@
+text
+@d1 3
+a3 1
+docRoot                   /var/www/sims/html
+d59 1
+@
+
+
+1.3
+log
+@Update
+@
+text
+@d49 9
+@
+
+
+1.2
+log
+@Update
+@
+text
+@d51 6
+@
+
+
+1.1
+log
+@Update
+@
+text
+@d1 2
+a2 4
+docRoot                   /var/www/wit/html
+vhDomain                  pmb.wit.ac.id
+vhAliases                 pmb.wit.ac.id
+adminEmails               support@@fathtech.co.id
+@

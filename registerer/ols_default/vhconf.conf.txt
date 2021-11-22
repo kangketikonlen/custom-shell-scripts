@@ -1,0 +1,124 @@
+adminemails support@kangketik.web.id
+docroot $VH_ROOT/html/
+enablegzip 1
+enablebr 1
+vhdomain *
+vhaliases *
+
+index  {
+    indexfiles index.php, index.html
+    useserver 1
+}
+
+rewrite  {
+    enable 1
+    autoloadhtaccess 1
+    rules <<<MY_END
+#redirect http to https
+
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+    MY_END
+}
+
+vhssl  {
+    keyfile /etc/letsencrypt/live/akademik.mtsattaqwa3.sch.id/privkey.pem
+    certfile /etc/letsencrypt/live/akademik.mtsattaqwa3.sch.id/fullchain.pem
+    certchain 1
+}
+
+accesscontrol  {
+    allow *
+}
+
+module cache {
+    unknownkeywords enablecache 0
+    unknownkeywords enableprivatecache 0
+    unknownkeywords checkpubliccache 1
+    unknownkeywords checkprivatecache 1
+    unknownkeywords qscache 1
+    unknownkeywords reqcookiecache 1
+    unknownkeywords ignorereqcachectrl 1
+    unknownkeywords ignorerespcachectrl 0
+    unknownkeywords respcookiecache 1
+    unknownkeywords expireinseconds 3600
+    unknownkeywords privateexpireinseconds 3600
+    unknownkeywords maxstaleage 200
+    unknownkeywords maxcacheobjsize 10000000
+    unknownkeywords storagepath cachedata
+    unknownkeywords nocachedomain 
+    param <<<MY_END
+enablecache 0
+enableprivatecache 0
+checkpubliccache 1
+checkprivatecache 1
+qscache 1
+reqcookiecache 1
+ignorereqcachectrl 1
+ignorerespcachectrl 0
+respcookiecache 1
+expireinseconds 3600
+privateexpireinseconds 3600
+maxstaleage 200
+maxcacheobjsize 10000000
+storagepath cachedata
+nocachedomain 
+nocacheurl 
+no-vary 0
+addetag 0
+    MY_END
+    unknownkeywords nocacheurl 
+    unknownkeywords no-vary 0
+    unknownkeywords addetag 0
+    ls_enabled 1
+}
+
+scripthandler  {
+    add lsapi:lsphp74 php
+}
+
+accesslog $VH_ROOT/logs/access_log {
+    rollingsize 10M
+    useserver 0
+}
+
+extprocessor lsphp73 {
+    env PHP_LSAPI_CHILDREN=300
+    inittimeout 60
+    retrytimeout 0
+    persistconn 1
+    respbuffer 0
+    autostart 2
+    path $SERVER_ROOT/lsphp73/bin/lsphp
+    address uds://tmp/lshttpd/lsphp73.sock
+    maxconns 300
+    type lsapi
+    backlog 100
+    instances 1
+}
+
+errorlog $VH_ROOT/logs/error_log {
+    keepdays 3
+    loglevel ERROR
+    rollingsize 10M
+    useserver 1
+}
+
+extprocessor lsphp74 {
+    respbuffer 0
+    retrytimeout 7200
+    persistconn 1
+    pckeepalivetimeout 30
+    autostart 2
+    path $SERVER_ROOT/lsphp74/bin/lsphp
+    backlog 100
+    instances 1
+    type lsapi
+    address uds://tmp/lshttpd/lsphp74.sock
+    maxconns 300
+    inittimeout 60
+}
