@@ -14,7 +14,7 @@ DEFAULT_CONF_FOLD=ols_default
 if [[ -d "$WWW_FOLD" ]]; then
     echo "🆗 Folder already exists. Skipped.."
 else
-    mkdir -p "${WWW_FOLD}" && mkdir -p "${WWW_FOLD}/{html,repo}"
+    mkdir -p "${WWW_FOLD}" && mkdir -p "${WWW_FOLD}/html"
     git clone ${git_url} ${WWW_FOLD}/repo/
     echo "✅ Folder created successfully!"
 fi
