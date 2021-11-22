@@ -15,19 +15,14 @@ DEFAULT_CONF_FOLD=ols_default
 if [[ -f "$WWW_FOLD" ]]; then
     rm -rf "$WWW_FOLD"
     echo -e "\e[32m✅ ${server_name} root folder exist.. deleted.\e[0m"
-    mkdir -p "$WWW_FOLD/{html,repo}"
-    echo -e "\e[32m✅ ${server_name} root folder created.. ok.\e[0m"
-    mkdir -p "$WWW_FOLD/{html,repo}"
-    echo -e "\e[32m✅ ${server_name} root folder created.. ok.\e[0m"
+    mkdir -p "${WWW_FOLD}" && mkdir -p "${WWW_FOLD}/{html,repo}"
     git clone ${git_url} ${WWW_FOLD}/repo/
 else
-    mkdir -p "$WWW_FOLD/{html,repo}"
-    echo -e "\e[32m✅ ${server_name} root folder created.. ok.\e[0m"
-    mkdir -p "$WWW_FOLD/{html,repo}"/
+    mkdir -p "${WWW_FOLD}" && mkdir -p "${WWW_FOLD}/{html,repo}"
     echo -e "\e[32m✅ ${server_name} root folder created.. ok.\e[0m"
     git clone ${git_url} ${WWW_FOLD}/repo/
 fi
 
-sudo cp -r DEFAULT_CONF_FOLD ${CONF_FOLD}
+sudo cp -r ${DEFAULT_CONF_FOLD} ${CONF_FOLD}
 sudo chown -R lsadm:nogroup ${CONF_FOLD}
 "\e[32m✅ DONE Edit manualy from your ip_address:7080\e[0m"
