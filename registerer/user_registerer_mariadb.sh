@@ -11,7 +11,7 @@ echo -e "\e[32m🙏 restarting database server.. please wait.\e[0m"
 sleep 3
 echo -e "\e[32m✅ creating database users...\e[0m"
 read -p "Masukan username$: " username
-read -s "Oke, sekarang password$: " password
+read -s "Oke sekarang password$: " password
 if [[ $? == 0 ]]; then
 	echo -e "\e[32m✨ DATABASE SUCCESSFULLY CONFIGURED\e[0m"
 	Q1="CREATE USER '${username}'@'%' IDENTIFIED BY '${password}';"
