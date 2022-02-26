@@ -78,7 +78,7 @@ addetag 0
 }
 
 scripthandler  {
-    add lsapi:lsphp73 php
+    add lsapi:lsphp74 php
 }
 
 accesslog $VH_ROOT/logs/access_log {
@@ -86,15 +86,15 @@ accesslog $VH_ROOT/logs/access_log {
     useserver 0
 }
 
-extprocessor lsphp73 {
+extprocessor lsphp74 {
     env PHP_LSAPI_CHILDREN=300
     inittimeout 60
     retrytimeout 0
     persistconn 1
     respbuffer 0
     autostart 2
-    path $SERVER_ROOT/lsphp73/bin/lsphp
-    address uds://tmp/lshttpd/lsphp73.sock
+    path $SERVER_ROOT/lsphp74/bin/lsphp
+    address uds://tmp/lshttpd/lsphp74.sock
     maxconns 300
     type lsapi
     backlog 100
