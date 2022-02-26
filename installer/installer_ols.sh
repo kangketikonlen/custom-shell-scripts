@@ -4,7 +4,7 @@
 #
 # downloading official scripts
 wget -c http://rpms.litespeedtech.com/debian/enable_lst_debian_repo.sh &&
-sudo bash enable_lst_debain_repo.sh &&
+sudo bash ./enable_lst_debain_repo.sh &&
 sudo apt install openlitespeed -y &&
 # remove downloaded scripts
 sudo rm -rf enable_lst_debain_repo.sh
