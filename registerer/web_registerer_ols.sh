@@ -16,6 +16,7 @@ if [[ -d "$WWW_FOLD" ]]; then
 else
     mkdir -p "${WWW_FOLD}" && mkdir -p "${WWW_FOLD}/html"
     git clone ${git_url} ${WWW_FOLD}/repo/
+    git clone ${git_url} ${WWW_FOLD}/html/
     echo "✅ Folder created successfully!"
 fi
 
